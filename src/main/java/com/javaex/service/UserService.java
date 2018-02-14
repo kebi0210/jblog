@@ -3,6 +3,8 @@ package com.javaex.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.javaex.dao.BlogDao;
+import com.javaex.dao.CategoryDao;
 import com.javaex.dao.UserDao;
 import com.javaex.vo.UserVo;
 
@@ -12,15 +14,29 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	public int join(UserVo userVo) {
+	@Autowired
+	private BlogDao blogDao;
+	
+	@Autowired
+	private CategoryDao categoryDao;
+	
+	public void join(UserVo userVo) {
 		
-		return userDao.getjoin(userVo);
+		userDao.getjoin(userVo);
+		blogDao.blogjoin(userVo);
+		categoryDao.getjoin(userVo);
 		
 	}
 	
 	public UserVo login(String id, String password) {
 		
 		return userDao.getlogin(id,password);
+		
+	}
+	
+	public int userno(String id) {
+		
+		return userDao.getuserno(id);
 		
 	}
 }

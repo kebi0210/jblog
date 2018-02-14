@@ -3,7 +3,6 @@ package com.javaex.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ibatis.binding.MapperProxy;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,5 +29,11 @@ public class UserDao {
 		map.put("password", password);
 		
 		return sqlSession.selectOne("userLogin",map);
+	}
+	
+	public int getuserno(String id) {
+		
+		return sqlSession.selectOne("userid",id);
+		
 	}
 }
