@@ -39,7 +39,7 @@
 		
 	</select>
 	
-	<select id="userid" parameterType="com.javaex.vo.UserVo">
+	<select id="userid" parameterType="String" resultType ="com.javaex.vo.UserVo">
 	
 		<![CDATA[
 		
@@ -51,5 +51,7 @@
 	
 	
 	</select>
+	
+	
 	
 </mapper>

@@ -31,7 +31,7 @@ public class UserDao {
 		return sqlSession.selectOne("userLogin",map);
 	}
 	
-	public int getuserno(String id) {
+	public UserVo getuserno(String id) {
 		
 		return sqlSession.selectOne("userid",id);
 		

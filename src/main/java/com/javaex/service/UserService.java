@@ -34,7 +34,7 @@ public class UserService {
 		
 	}
 	
-	public int userno(String id) {
+	public UserVo userno(String id) {
 		
 		return userDao.getuserno(id);
 		

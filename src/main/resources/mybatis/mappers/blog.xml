@@ -8,10 +8,39 @@
 			<![CDATA[
 
 			insert into blog
-				values (#{userno}, #{username}, '/jblog/assets/images/spring-logo.jpg')
+				values (#{userno}, #{username}||'님의 블로그입니다.', '/jblog/assets/images/spring-logo.jpg')
 
 			]]>
 		
 	 </insert>
+	 
+	 <select id="listblog" parameterType="int" resultType="com.javaex.vo.BlogVo">
+	 	
+			<![CDATA[
+
+			select userNo userno,  
+      			   bolgTitle bolgtitle,  
+                   logoFile logofile  
+            from blog  
+            where userno = #{userno}
+
+			]]>	
+	 
+	 </select>
+	 
+	 
+	 <update id="updateblog" parameterType="com.javaex.vo.BlogVo">
+	 		
+	 		<![CDATA[
+
+				update blog
+     			       set bolgTitle = #{bolgtitle},
+         			   logoFile = '/jblog/assets/images/spring-logo.jpg'
+				where userno = #{userno}
+
+			]]>	
+	 
+	 </update>
+	 
 	 
 </mapper>
