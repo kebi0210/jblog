@@ -36,4 +36,11 @@ public class UserDao {
 		return sqlSession.selectOne("userid",id);
 		
 	}
+	
+	public UserVo idCheck(String id) {
+		
+		//System.out.println("Dao"+id);
+		return sqlSession.selectOne("user.selectUserByid",id);
+		
+	}
 }

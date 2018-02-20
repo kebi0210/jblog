@@ -9,19 +9,20 @@
 		
 			<ul>
 				<!-- 로그인 전 메뉴 -->
-			<c:choose>
-			<c:when test="${authUser == null}">
-				<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
-			</c:when>
-			</c:choose>		
+			
+				<c:if test="${authUser == null}">
+					<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
+				</c:if>
 					
 				<!-- 로그인 후 메뉴 -->
-				<c:choose>
-			    <c:when test="${authUser != null}">
+				
+			    <c:if test="${authUser != null}">
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+				<c:if test="${id == authUser.id }">
 				<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin">내블로그 관리</a></li>
-				</c:when>
-				</c:choose>
+				</c:if>
+				</c:if>
+				
 			</ul>
 		</div>
 		<!-- /블로그 해더 -->

@@ -8,7 +8,7 @@
 			<![CDATA[
 
 			insert into blog
-				values (#{userno}, #{username}||'님의 블로그입니다.', '/jblog/assets/images/spring-logo.jpg')
+				values (#{userno}, #{username}||'님의 블로그입니다.', 'spring-logo.jpg')
 
 			]]>
 		
@@ -35,7 +35,7 @@
 
 				update blog
      			       set bolgTitle = #{bolgtitle},
-         			   logoFile = '/jblog/assets/images/spring-logo.jpg'
+         			   logoFile = #{logofile}
 				where userno = #{userno}
 
 			]]>	

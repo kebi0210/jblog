@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
@@ -75,5 +76,15 @@ public class UserController {
 		return "main/index";
 		
 	}
+	
+		@ResponseBody 
+	 	@RequestMapping(value="/user/idCheck") 
+	 	public boolean idCheck(@RequestParam("id") String id) { 
+	 		
+		boolean result = userService.idCheck(id); 
+	
+	 		return result;    
+	 	} 
+
 	
 }

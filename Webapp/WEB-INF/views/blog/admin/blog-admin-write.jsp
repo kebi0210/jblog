@@ -18,15 +18,16 @@
 				
 				<c:import url="/WEB-INF/views/includes/blog-menu.jsp"></c:import>
 				
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath }/${authUser.id }/admin/insert" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
 				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+				      				<c:forEach items="${list}" var="vo">
+				      					<option value="${vo.cateno}"> ${vo.catenaem}</option>
+				      				</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>

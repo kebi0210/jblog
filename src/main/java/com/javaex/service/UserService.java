@@ -39,4 +39,23 @@ public class UserService {
 		return userDao.getuserno(id);
 		
 	}
+	
+	public Boolean idCheck(String id) {
+	
+		UserVo userVo = userDao.idCheck(id);
+		//System.out.println(userVo);
+		if(userVo != null) {
+			
+			return  false;
+			
+		} else {
+			
+			return  true;
+			
+		}
+		
+		
+		
+}
+
 }

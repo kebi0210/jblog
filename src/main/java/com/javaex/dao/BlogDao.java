@@ -27,14 +27,10 @@ public class BlogDao {
 		
 	}
 	
-	public int updateblog(BlogVo blogVo) {
+	public void updateblog(BlogVo blogVo) {
 		
-		int update = sqlSession.update("blog.updateblog",blogVo);
-		System.out.println("update"+update);
-		return update;
+		sqlSession.update("blog.updateblog",blogVo);
 		
 	}
-
 	
-
 }

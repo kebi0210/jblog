@@ -5,14 +5,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
+import com.javaex.service.PostService;
 import com.javaex.service.UserService;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.PostVo;
 import com.javaex.vo.UserVo;
 
 @Controller
@@ -24,6 +28,9 @@ public class BlogController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PostService postService;
+	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public String blogfrom(@PathVariable(value="id") String id, Model model) {
 		//System.out.println("내 블로그 진입");
@@ -32,6 +39,8 @@ public class BlogController {
 		//System.out.println("userVo"+userVo);
 		
 		model.addAttribute("blogVo",blogVo);
+		String url = "upload/";
+		model.addAttribute("url",url);
 		//System.out.println("blogVo"+blogVo);
 		return "blog/blog-main";	
 	}
@@ -41,7 +50,11 @@ public class BlogController {
 		
 		System.out.println("내블로그 관리 진입");
 		
+		
 		return "redirect:/{id}/admin/basic";
+		
+		
+		
 		
 	}
 	
@@ -52,6 +65,9 @@ public class BlogController {
 		BlogVo blogVo = blogService.getlistBlog(userVo);
 		
 		model.addAttribute("blogVo",blogVo);
+		
+		String url = "upload/";
+		model.addAttribute("url",url);
 		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
@@ -73,19 +89,47 @@ public class BlogController {
 	@RequestMapping(value="/{id}/admin/update")
 	public String blogupdate(@RequestParam(value ="title") String title,
 			                 @RequestParam(value ="userno") int userno,
+			                 @RequestParam(value="logo-file") MultipartFile file,
 			                 Model model) {
-			System.out.println("업데이트 진입");
+			//System.out.println("업데이트 진입");
+			//System.out.println(file);
+			blogService.getupdateblog(title, userno, file);
 			
-			BlogVo blogVo = blogService.getupdateblog(title,userno);
-				System.out.println("blogVo2222"+blogVo);
-			//model.addAttribute("blogVo",blogVo);
-			//System.out.println(blogVo);
-		return "redirect:/{id}/admin/basic";
-		
-		
-	
-		
+		return "redirect:/{id}/admin/basic";	
 	}	
+	
+	@RequestMapping(value="/{id}/admin/cate")
+	public String categoryform(@PathVariable(value="id") String id,HttpSession session,Model model) {
+		UserVo userVo = userService.userno(id);
+		BlogVo blogVo = blogService.getlistBlog(userVo);
+		
+		model.addAttribute("blogVo",blogVo);
+		
+		return "blog/admin/blog-admin-cate";
+		
+	}
+	
+	@RequestMapping(value="/{id}/admin/write")
+	public String writeform(@PathVariable(value="id") String id,HttpSession session,Model model) {
+		UserVo userVo = userService.userno(id);
+		BlogVo blogVo = blogService.getlistBlog(userVo);
+		
+		model.addAttribute("blogVo",blogVo);
+		
+		return "blog/admin/blog-admin-write";
+		
+	}
+	
+	@RequestMapping(value="/{id}/admin/insert")
+	public String insert(@ModelAttribute PostVo postVo) {
+		
+		//System.out.println("insert 진입");
+		
+		postService.insertpost(postVo);
+	
+		return "redirect:/{id}/admin/write";
+		
+	}
 	
 	
 	

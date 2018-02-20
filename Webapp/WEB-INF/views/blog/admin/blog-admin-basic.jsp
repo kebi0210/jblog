@@ -18,15 +18,15 @@
 				
 				<c:import url="/WEB-INF/views/includes/blog-menu.jsp"></c:import>
 				
-				<form action="${pageContext.request.contextPath}/${authUser.id}/admin/update" method="post">
+				<form action="${pageContext.request.contextPath}/${authUser.id}/admin/update" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
 			      			<td><input type="text" size="40" name="title" value="${blogVo.bolgtitle}"></td>
 			      		</tr>
 			      		<tr>
-			      			<td class="t">로고이미지</td>
-			      			<td><img src="/jblog/assets/images/spring-logo.jpg"></td>      			
+			      			<td class="t">로고이미지</td> 
+			      			<td><img src="${pageContext.request.contextPath }/${url}${blogVo.logofile}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
