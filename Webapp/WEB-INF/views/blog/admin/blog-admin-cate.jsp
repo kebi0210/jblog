@@ -6,9 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <link rel="stylesheet" href="/jblog/assets/css/jblog.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 </head>
-<body>
-
+<body>					
+							
 	<div id="container">
 		
 		<c:import url="/WEB-INF/views/includes/blog-header.jsp"></c:import>
@@ -26,26 +27,18 @@
 		      			<th>설명</th>
 		      			<th>삭제</th>      			
 		      		</tr>
-					<c:forEach items="${list}" var = "vo" >
-					<tr>
-						<td>${vo.cateno}</td>
-						<td>${vo.catenamecatename}</td>
-						<td>10</td>
-						<td>${vo.description}</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>  
-					</c:forEach>
+					
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
 		      	<table id="admin-cat-add">
 		      		<tr>
 		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name"></td>
+		      			<td><input type="text" name="catename"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
+		      			<td><input type="text" name="description"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="s">&nbsp;</td>
@@ -59,4 +52,55 @@
 		
 	</div>
 </body>
+
+<script type="text/javascript">
+
+var userno = ${authUser.userno}
+cateList(userno);
+
+function cateList(userno){	
+	
+	
+	
+	$.ajax({
+
+		url : "${pageContext.request.contextPath }/api/listcate",
+		type : "post",
+		//contentType : "application/json",
+		data : {userno : userno},
+	
+		dataType : "json",
+		success : function(cateList){
+		/*성공시 처리해야될 코드 작성*/
+			//console.log(guestbooklist);
+			
+			for(var i=0; i<cateList.length; i++){
+				render(cateList[i]);	
+			}
+		
+		},
+	
+		error : function(XHR, status, error) {
+		console.error(status + " : " + error);
+		}
+
+		});
+}							
+
+function render(cateVo){
+	var title = "";
+	title += "<tr>";
+	title +=	"<td>" + cateVo.cateno + "</td>";
+	title +=	"<td>" + cateVo.catename +"</td>";
+	title +=	"<td>0</td>";
+	title +=	"<td> "+ cateVo.description +"</td>";
+	title += "<td><img src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td>";
+	title += "</tr>" ;
+	
+	$(".admin-cat").append(title);
+	
+	}
+
+	
+</script>
 </html>

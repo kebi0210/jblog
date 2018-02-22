@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
+import com.javaex.service.CategoryService;
 import com.javaex.service.PostService;
 import com.javaex.service.UserService;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CategoryVo;
 import com.javaex.vo.PostVo;
 import com.javaex.vo.UserVo;
 
@@ -30,6 +34,9 @@ public class BlogController {
 	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public String blogfrom(@PathVariable(value="id") String id, Model model) {
@@ -114,7 +121,14 @@ public class BlogController {
 		UserVo userVo = userService.userno(id);
 		BlogVo blogVo = blogService.getlistBlog(userVo);
 		
+
 		model.addAttribute("blogVo",blogVo);
+		
+		List<CategoryVo> listcate = categoryService.list(userVo.getUserno());
+		
+		//System.out.println(listcate);
+		
+		model.addAttribute("listcate",listcate);
 		
 		return "blog/admin/blog-admin-write";
 		
@@ -124,14 +138,11 @@ public class BlogController {
 	public String insert(@ModelAttribute PostVo postVo) {
 		
 		//System.out.println("insert 진입");
-		
+		//System.out.println(postVo);
 		postService.insertpost(postVo);
-	
+		
 		return "redirect:/{id}/admin/write";
 		
 	}
-	
-	
-	
 	
 }

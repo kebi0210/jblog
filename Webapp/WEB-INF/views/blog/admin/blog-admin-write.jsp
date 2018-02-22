@@ -23,17 +23,17 @@
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
-			      				<input type="text" size="60" name="title">
-				      			<select name="category">
-				      				<c:forEach items="${list}" var="vo">
-				      					<option value="${vo.cateno}"> ${vo.catenaem}</option>
+			      				<input type="text" size="60" name="posttitle">
+				      			<select name="cateno">
+				      				<c:forEach items="${listcate}" var="vo">
+				      					<option value="${vo.cateno}"> ${vo.catename}</option>
 				      				</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="content"></textarea></td>
+			      			<td><textarea name="postcontent"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>
