@@ -17,7 +17,7 @@
       		<input type="text" name="id">
       		
       		<label>패스워드</label> 
-      		<input type="text" name="password">
+      		<input type="password" name="password">
       		
       		<c:if test="${param.result == 'fail'}">
       		 	<p>비밀번호 또는 아이디가 다릅니다 다시 확인 후 이용해 주세요 </p>

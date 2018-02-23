@@ -18,7 +18,7 @@
 		
 	 </insert>
 	 
-	 <insert id="insertcategoryajex" parameterType="com.javaex.vo.UserVo">	
+	 <insert id="insertcategoryajex" parameterType="com.javaex.vo.CategoryVo">	
 		
 		<selectKey keyProperty="cateno" resultType="int" order="BEFORE">	 
  			select seq_category_no.nextval from dual 
@@ -46,7 +46,7 @@
 				   catename,
 				   description
 			from category
-			where userNo = #{userno}
+			where cateno = #{cateno}
 			order by regdate desc
 			
 			]]>	

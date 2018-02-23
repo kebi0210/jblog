@@ -30,11 +30,11 @@ public class CategoryDao {
 		
 	}
 	
-	public List<CategoryVo> selectcateajax(int cateno){
+	public CategoryVo selectcateajax(int cateno){
 		
-		 List<CategoryVo> cateajaxlist = sqlSession.selectOne("category.listcateajax",cateno);
+		 
 		
-		return cateajaxlist;
+		return sqlSession.selectOne("category.listcateajax",cateno);
 		
 	}
 	

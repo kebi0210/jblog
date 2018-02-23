@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,12 +32,12 @@ public class ApiCategoryController {
 	
 	@ResponseBody
 	@RequestMapping(value="/api/insertajex")
-	public List<CategoryVo> insertcategoryajex(@RequestBody CategoryVo categoryVo) {
-		
-			List<CategoryVo> cateVo = categroyService.ajaxCategory(categoryVo);
-			System.out.println(cateVo);
-		
-		return cateVo;
+	public CategoryVo insertcategoryajex(@ModelAttribute("CategoryVo") CategoryVo categoryVo) {
+		System.out.println(categoryVo.toString());
+			 categroyService.ajaxCategory(categoryVo);
+			System.out.println("list"+categoryVo.toString());
+			
+		return categoryVo;
 	}
 	
 	@ResponseBody

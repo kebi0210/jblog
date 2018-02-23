@@ -34,15 +34,15 @@
 		      	<table id="admin-cat-add">
 		      		<tr>
 		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="catename"></td>
+		      			<td><input id="catename" type="text" name="catename"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="description"></td>
+		      			<td><input id="description" type="text" name="description"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="s">&nbsp;</td>
-		      			<td><input type="submit" value="카테고리 추가"></td>
+		      			<td><input id="cateadd" type="submit" value="카테고리 추가"></td>
 		      		</tr>      		      		
 		      	</table> 
 			</div>
@@ -85,7 +85,46 @@ function cateList(userno){
 		}
 
 		});
-}							
+	
+	
+}
+
+
+
+		$("#cateadd").on("click",function(){
+			var CategoryVo={
+					userno : userno,
+					catename : $("#catename").val(),
+					description : $("#description").val()
+			}
+			
+			$.ajax({
+
+				url : "${pageContext.request.contextPath }/api/insertajex",
+				type : "post",
+				//contentType : "application/json",
+				/* data :JSON.stringify(CategoryVo), */
+			
+				data : CategoryVo,
+				dataType : "json",
+				success : function(cateVo){
+						  render(cateVo.userno);
+						  $("#catename").val("");
+						  $("#description").val("");
+				
+				},
+			
+				error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+				}
+
+				});
+			
+		});
+		
+
+		
+
 
 function render(cateVo){
 	var title = "";

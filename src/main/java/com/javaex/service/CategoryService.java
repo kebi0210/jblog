@@ -22,14 +22,15 @@ public class CategoryService {
 		
 	}
 	
-	public List<CategoryVo> ajaxCategory(CategoryVo categoryVo) {
+	public CategoryVo ajaxCategory(CategoryVo categoryVo) {
 		
 		int result = categoryDao.insertCategoryajex(categoryVo);
 		System.out.println(result);
+		System.out.println("list"+categoryVo.toString());
 		
-		List<CategoryVo> cateajaxlist  = categoryDao.selectcateajax(categoryVo.getUserno());
+		 
 		
-		return cateajaxlist;
+		return categoryDao.selectcateajax(categoryVo.getUserno());
 		
 	}
 }
